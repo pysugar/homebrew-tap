@@ -23,12 +23,6 @@ brew install pysugar/tap/oauth-llm-nexus
 brew services start oauth-llm-nexus
 ```
 
-**Configuration:**
-```bash
-export GOOGLE_CLIENT_ID="your-client-id"
-export GOOGLE_CLIENT_SECRET="your-client-secret"
-```
-
 **Dashboard:** http://localhost:8086
 
 For more information, visit [oauth-llm-nexus](https://github.com/pysugar/oauth-llm-nexus).
