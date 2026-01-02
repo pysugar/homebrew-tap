@@ -61,13 +61,15 @@ class OauthLlmNexus < Formula
         nexus
 
       Environment Variables:
-        PORT    - Server port (default: 8086 in release mode)
-        HOST    - Bind address (default: 127.0.0.1)
-                  Set HOST=0.0.0.0 for LAN access
+        PORT                  - Server port (default: 8086 in release mode)
+        HOST                  - Bind address (default: 127.0.0.1)
+                                Set HOST=0.0.0.0 for LAN access
+        NEXUS_ADMIN_PASSWORD  - Optional password for Dashboard/API access
 
       Dashboard: http://localhost:8086
       OpenAI API: http://localhost:8086/v1
       Anthropic API: http://localhost:8086/anthropic/v1
+      GenAI API: http://localhost:8086/genai
     EOS
   end
 
