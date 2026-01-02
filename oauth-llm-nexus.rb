@@ -7,7 +7,7 @@ class OauthLlmNexus < Formula
   on_macos do
     on_intel do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-darwin-amd64"
-      sha256 "eb26b2cfb70d6baf5ec958ec1bc8a4d22eb3a8b753b8bd0e7f2b744b513a3f30"
+      sha256 "cead13133065b768a2b31532ff9ccc201dad67f294738340327865f7ff53c2c1"
 
       def install
         bin.install "nexus-darwin-amd64" => "nexus"
@@ -16,7 +16,7 @@ class OauthLlmNexus < Formula
 
     on_arm do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-darwin-arm64"
-      sha256 "3aadae9a5f5bb463cc2281b0787f6ab2a9d0722933aa71d6ecc0c7f1be2b3107"
+      sha256 "5c9a31cf94c4854d1ff52dda782bb6d8fb97addf169ddacea5748d65176c8ec8"
 
       def install
         bin.install "nexus-darwin-arm64" => "nexus"
@@ -27,7 +27,7 @@ class OauthLlmNexus < Formula
   on_linux do
     on_intel do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-linux-amd64"
-      sha256 "2e0a993d73a19ea7fb7b3638c65574f0f3002bc5015b5204771ae0afb81fd8c9"
+      sha256 "f87accf3b5857dc1c565383e62eb9bb505ab07fa5bd5b2b36adf61d0ae111d4e"
 
       def install
         bin.install "nexus-linux-amd64" => "nexus"
@@ -36,7 +36,7 @@ class OauthLlmNexus < Formula
 
     on_arm do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-linux-arm64"
-      sha256 "3160d18c2a0f300ebaf7ca5ffd3a658d21c8ca688394658b2dde3a083a6e05ce"
+      sha256 "f8cfde2fa0d39357a4a3be500a893708e130017355d519a01cd25105c8f848d4"
 
       def install
         bin.install "nexus-linux-arm64" => "nexus"
