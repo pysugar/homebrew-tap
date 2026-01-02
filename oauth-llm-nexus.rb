@@ -11,6 +11,7 @@ class OauthLlmNexus < Formula
 
       def install
         libexec.install "nexus-darwin-amd64" => "nexus"
+        chmod 0755, libexec/"nexus"
         (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
@@ -21,6 +22,7 @@ class OauthLlmNexus < Formula
 
       def install
         libexec.install "nexus-darwin-arm64" => "nexus"
+        chmod 0755, libexec/"nexus"
         (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
@@ -33,6 +35,7 @@ class OauthLlmNexus < Formula
 
       def install
         libexec.install "nexus-linux-amd64" => "nexus"
+        chmod 0755, libexec/"nexus"
         (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
@@ -43,6 +46,7 @@ class OauthLlmNexus < Formula
 
       def install
         libexec.install "nexus-linux-arm64" => "nexus"
+        chmod 0755, libexec/"nexus"
         (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
