@@ -1,7 +1,7 @@
 class OauthLlmNexus < Formula
   desc "OAuth proxy for LLM APIs - bridge OpenAI/Anthropic/GenAI to Google Cloud Code"
   homepage "https://github.com/pysugar/oauth-llm-nexus"
-  version "0.0.3"
+  version "0.0.5"
   license "MIT"
 
   on_macos do
