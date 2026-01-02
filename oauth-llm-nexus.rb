@@ -1,7 +1,7 @@
 class OauthLlmNexus < Formula
   desc "OAuth proxy for LLM APIs - bridge OpenAI/Anthropic/GenAI to Google Cloud Code"
   homepage "https://github.com/pysugar/oauth-llm-nexus"
-  version "0.0.5"
+  version "0.0.8"
   license "MIT"
 
   on_macos do
@@ -10,7 +10,8 @@ class OauthLlmNexus < Formula
       sha256 "cead13133065b768a2b31532ff9ccc201dad67f294738340327865f7ff53c2c1"
 
       def install
-        bin.install "nexus-darwin-amd64" => "nexus"
+        libexec.install "nexus-darwin-amd64" => "nexus"
+        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
 
@@ -19,7 +20,8 @@ class OauthLlmNexus < Formula
       sha256 "5c9a31cf94c4854d1ff52dda782bb6d8fb97addf169ddacea5748d65176c8ec8"
 
       def install
-        bin.install "nexus-darwin-arm64" => "nexus"
+        libexec.install "nexus-darwin-arm64" => "nexus"
+        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
   end
@@ -30,7 +32,8 @@ class OauthLlmNexus < Formula
       sha256 "f87accf3b5857dc1c565383e62eb9bb505ab07fa5bd5b2b36adf61d0ae111d4e"
 
       def install
-        bin.install "nexus-linux-amd64" => "nexus"
+        libexec.install "nexus-linux-amd64" => "nexus"
+        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
 
@@ -39,7 +42,8 @@ class OauthLlmNexus < Formula
       sha256 "f8cfde2fa0d39357a4a3be500a893708e130017355d519a01cd25105c8f848d4"
 
       def install
-        bin.install "nexus-linux-arm64" => "nexus"
+        libexec.install "nexus-linux-arm64" => "nexus"
+        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
       end
     end
   end
@@ -53,16 +57,13 @@ class OauthLlmNexus < Formula
         nexus
 
       Environment Variables:
-        PORT    - Server port (default: 8080)
+        PORT    - Server port (default: 8086 in release mode)
         HOST    - Bind address (default: 127.0.0.1)
                   Set HOST=0.0.0.0 for LAN access
 
-      Example (LAN access):
-        HOST=0.0.0.0 PORT=8086 nexus
-
-      Dashboard: http://localhost:8080
-      OpenAI API: http://localhost:8080/v1
-      Anthropic API: http://localhost:8080/anthropic/v1
+      Dashboard: http://localhost:8086
+      OpenAI API: http://localhost:8086/v1
+      Anthropic API: http://localhost:8086/anthropic/v1
     EOS
   end
 
