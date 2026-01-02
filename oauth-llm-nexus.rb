@@ -46,19 +46,23 @@ class OauthLlmNexus < Formula
 
   def caveats
     <<~EOS
-      To use oauth-llm-nexus, you need to set up Google OAuth credentials:
-        export GOOGLE_CLIENT_ID="your-client-id.apps.googleusercontent.com"
-        export GOOGLE_CLIENT_SECRET="your-client-secret"
-
-      Then start the service:
+      To start oauth-llm-nexus:
         brew services start oauth-llm-nexus
 
       Or run manually:
         nexus
 
-      Dashboard: http://localhost:8086
-      OpenAI API: http://localhost:8086/v1
-      Anthropic API: http://localhost:8086/anthropic/v1
+      Environment Variables:
+        PORT    - Server port (default: 8080)
+        HOST    - Bind address (default: 127.0.0.1)
+                  Set HOST=0.0.0.0 for LAN access
+
+      Example (LAN access):
+        HOST=0.0.0.0 PORT=8086 nexus
+
+      Dashboard: http://localhost:8080
+      OpenAI API: http://localhost:8080/v1
+      Anthropic API: http://localhost:8080/anthropic/v1
     EOS
   end
 
@@ -68,7 +72,6 @@ class OauthLlmNexus < Formula
     keep_alive true
     log_path var/"log/oauth-llm-nexus.log"
     error_log_path var/"log/oauth-llm-nexus.log"
-    environment_variables GOOGLE_CLIENT_ID: "", GOOGLE_CLIENT_SECRET: ""
   end
 
   def post_install
