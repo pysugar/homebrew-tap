@@ -10,19 +10,7 @@ class OauthLlmNexus < Formula
       sha256 "69a484054dbf10c38e4b15c16b9595be75a02559add2e1963b510790ea7698eb"
 
       def install
-        libexec.install "nexus-darwin-amd64" => "nexus"
-        chmod 0755, libexec/"nexus"
-        
-        # Create a custom wrapper that sources an optional environment file from etc
-        (bin/"nexus").write <<~SH
-          #!/bin/bash
-          ENV_FILE="#{etc}/oauth-llm-nexus.env"
-          if [ -f "$ENV_FILE" ]; then
-            source "$ENV_FILE"
-          fi
-          export NEXUS_MODE="release"
-          exec "#{libexec}/nexus" "$@"
-        SH
+        install_binary "nexus-darwin-amd64"
       end
     end
 
@@ -31,19 +19,7 @@ class OauthLlmNexus < Formula
       sha256 "36368acecd7e4ff624bcd68c65a8dbc6733062bc5b20683c55cd121654c3420c"
 
       def install
-        libexec.install "nexus-darwin-arm64" => "nexus"
-        chmod 0755, libexec/"nexus"
-        
-        # Create a custom wrapper that sources an optional environment file from etc
-        (bin/"nexus").write <<~SH
-          #!/bin/bash
-          ENV_FILE="#{etc}/oauth-llm-nexus.env"
-          if [ -f "$ENV_FILE" ]; then
-            source "$ENV_FILE"
-          fi
-          export NEXUS_MODE="release"
-          exec "#{libexec}/nexus" "$@"
-        SH
+        install_binary "nexus-darwin-arm64"
       end
     end
   end
@@ -54,19 +30,7 @@ class OauthLlmNexus < Formula
       sha256 "95e6f7f0e25cdb3c6f37715acc1f3f956e52b7c1458123203f91d2bc8732d084"
 
       def install
-        libexec.install "nexus-linux-amd64" => "nexus"
-        chmod 0755, libexec/"nexus"
-        
-        # Create a custom wrapper that sources an optional environment file from etc
-        (bin/"nexus").write <<~SH
-          #!/bin/bash
-          ENV_FILE="#{etc}/oauth-llm-nexus.env"
-          if [ -f "$ENV_FILE" ]; then
-            source "$ENV_FILE"
-          fi
-          export NEXUS_MODE="release"
-          exec "#{libexec}/nexus" "$@"
-        SH
+        install_binary "nexus-linux-amd64"
       end
     end
 
@@ -75,21 +39,29 @@ class OauthLlmNexus < Formula
       sha256 "008ddc04bfc77d3e0e987b36bf3f36d1d71080f8ebc49a1dbabc354b4fc156da"
 
       def install
-        libexec.install "nexus-linux-arm64" => "nexus"
-        chmod 0755, libexec/"nexus"
-        
-        # Create a custom wrapper that sources an optional environment file from etc
-        (bin/"nexus").write <<~SH
-          #!/bin/bash
-          ENV_FILE="#{etc}/oauth-llm-nexus.env"
-          if [ -f "$ENV_FILE" ]; then
-            source "$ENV_FILE"
-          fi
-          export NEXUS_MODE="release"
-          exec "#{libexec}/nexus" "$@"
-        SH
+        install_binary "nexus-linux-arm64"
       end
     end
+  end
+
+  # Shared installation logic - reduces code duplication
+  def install_binary(binary_name)
+    libexec.install binary_name => "nexus"
+    chmod 0755, libexec/"nexus"
+
+    # Create wrapper script that sources optional environment file
+    (bin/"nexus").write <<~SH
+      #!/bin/bash
+      ENV_FILE="#{etc}/oauth-llm-nexus.env"
+      if [ -f "$ENV_FILE" ]; then
+        set +e  # Don't exit on source error
+        source "$ENV_FILE"
+        set -e
+      fi
+      export NEXUS_MODE="release"
+      exec "#{libexec}/nexus" "$@"
+    SH
+    chmod 0755, bin/"nexus"
   end
 
   def caveats
@@ -101,13 +73,17 @@ class OauthLlmNexus < Formula
         nexus
 
       Environment Variables:
-        To customize, add exports to: #{etc}/oauth-llm-nexus.env
+        Customize by editing: #{etc}/oauth-llm-nexus.env
         
-        PORT                  - Server port (default: 8086 in release mode)
-        HOST                  - Bind address (default: 127.0.0.1)
-                                Set HOST=0.0.0.0 for LAN access
-        NEXUS_VERBOSE         - Enable detailed logging (true/false)
-        NEXUS_ADMIN_PASSWORD  - Optional password for Dashboard/API access
+        Example:
+          echo 'export NEXUS_VERBOSE="true"' >> #{etc}/oauth-llm-nexus.env
+          brew services restart oauth-llm-nexus
+
+        Supported variables:
+          PORT                  - Server port (default: 8086)
+          HOST                  - Bind address (default: 127.0.0.1)
+          NEXUS_VERBOSE         - Enable detailed logging (true/false)
+          NEXUS_ADMIN_PASSWORD  - Optional password for Dashboard/API
 
       Dashboard: http://localhost:8086
       OpenAI API: http://localhost:8086/v1
@@ -126,6 +102,20 @@ class OauthLlmNexus < Formula
 
   def post_install
     (var/"oauth-llm-nexus").mkpath
+
+    # Create example env file if it doesn't exist
+    env_file = etc/"oauth-llm-nexus.env"
+    unless env_file.exist?
+      env_file.write <<~ENV
+        # OAuth-LLM-Nexus Environment Configuration
+        # Uncomment and modify the variables below as needed
+        
+        # export NEXUS_VERBOSE="true"
+        # export PORT="8090"
+        # export HOST="0.0.0.0"
+        # export NEXUS_ADMIN_PASSWORD="your-password"
+      ENV
+    end
   end
 
   test do
