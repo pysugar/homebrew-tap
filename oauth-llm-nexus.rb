@@ -12,7 +12,17 @@ class OauthLlmNexus < Formula
       def install
         libexec.install "nexus-darwin-amd64" => "nexus"
         chmod 0755, libexec/"nexus"
-        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
+        
+        # Create a custom wrapper that sources an optional environment file from etc
+        (bin/"nexus").write <<~SH
+          #!/bin/bash
+          ENV_FILE="#{etc}/oauth-llm-nexus.env"
+          if [ -f "$ENV_FILE" ]; then
+            source "$ENV_FILE"
+          fi
+          export NEXUS_MODE="release"
+          exec "#{libexec}/nexus" "$@"
+        SH
       end
     end
 
@@ -23,7 +33,17 @@ class OauthLlmNexus < Formula
       def install
         libexec.install "nexus-darwin-arm64" => "nexus"
         chmod 0755, libexec/"nexus"
-        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
+        
+        # Create a custom wrapper that sources an optional environment file from etc
+        (bin/"nexus").write <<~SH
+          #!/bin/bash
+          ENV_FILE="#{etc}/oauth-llm-nexus.env"
+          if [ -f "$ENV_FILE" ]; then
+            source "$ENV_FILE"
+          fi
+          export NEXUS_MODE="release"
+          exec "#{libexec}/nexus" "$@"
+        SH
       end
     end
   end
@@ -36,7 +56,17 @@ class OauthLlmNexus < Formula
       def install
         libexec.install "nexus-linux-amd64" => "nexus"
         chmod 0755, libexec/"nexus"
-        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
+        
+        # Create a custom wrapper that sources an optional environment file from etc
+        (bin/"nexus").write <<~SH
+          #!/bin/bash
+          ENV_FILE="#{etc}/oauth-llm-nexus.env"
+          if [ -f "$ENV_FILE" ]; then
+            source "$ENV_FILE"
+          fi
+          export NEXUS_MODE="release"
+          exec "#{libexec}/nexus" "$@"
+        SH
       end
     end
 
@@ -47,7 +77,17 @@ class OauthLlmNexus < Formula
       def install
         libexec.install "nexus-linux-arm64" => "nexus"
         chmod 0755, libexec/"nexus"
-        (bin/"nexus").write_env_script libexec/"nexus", NEXUS_MODE: "release"
+        
+        # Create a custom wrapper that sources an optional environment file from etc
+        (bin/"nexus").write <<~SH
+          #!/bin/bash
+          ENV_FILE="#{etc}/oauth-llm-nexus.env"
+          if [ -f "$ENV_FILE" ]; then
+            source "$ENV_FILE"
+          fi
+          export NEXUS_MODE="release"
+          exec "#{libexec}/nexus" "$@"
+        SH
       end
     end
   end
@@ -61,15 +101,18 @@ class OauthLlmNexus < Formula
         nexus
 
       Environment Variables:
+        To customize, add exports to: #{etc}/oauth-llm-nexus.env
+        
         PORT                  - Server port (default: 8086 in release mode)
         HOST                  - Bind address (default: 127.0.0.1)
                                 Set HOST=0.0.0.0 for LAN access
+        NEXUS_VERBOSE         - Enable detailed logging (true/false)
         NEXUS_ADMIN_PASSWORD  - Optional password for Dashboard/API access
 
       Dashboard: http://localhost:8086
       OpenAI API: http://localhost:8086/v1
       Anthropic API: http://localhost:8086/anthropic/v1
-      GenAI API: http://localhost:8086/genai
+      GenAI API: http://localhost:8086/genai/v1beta
     EOS
   end
 
