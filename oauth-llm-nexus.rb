@@ -72,6 +72,13 @@ class OauthLlmNexus < Formula
       Or run manually:
         nexus
 
+      ⚠️  DISCLAIMER & LICENSE:
+        This software is provided for EDUCATIONAL and RESEARCH purposes only under the
+        Sustainable Use License.
+        - STRICTLY PROHIBITED for commercial use.
+        - STRICTLY PROHIBITED to violate Google's Terms of Service.
+        - Users assume all risks associated with internal API usage.
+
       Environment Variables:
         Customize by editing: #{etc}/oauth-llm-nexus.env
         
