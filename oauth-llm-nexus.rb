@@ -1,13 +1,13 @@
 class OauthLlmNexus < Formula
   desc "OAuth proxy for LLM APIs - bridge OpenAI/Anthropic/GenAI to Google Cloud Code"
   homepage "https://github.com/pysugar/oauth-llm-nexus"
-  version "0.2.10"
+  version "0.2.11"
   license "Apache-2.0"
 
   on_macos do
     on_intel do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-darwin-amd64"
-      sha256 "abc5745997c64d6dab5de209966f60ae23621e4f93ecb548fd14d221d1c9f00a"
+      sha256 "35bea10fb5f98775d789ac97ddf800353809d986a8d61cbc6d564136ee8a783f"
 
       def install
         install_binary "nexus-darwin-amd64"
@@ -16,7 +16,7 @@ class OauthLlmNexus < Formula
 
     on_arm do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-darwin-arm64"
-      sha256 "16f9d34edd90db6687a30dff8091d1aaa2a044a757bbb598ea05c0f831f8496a"
+      sha256 "d559b424a8b7b02021882f6bd8290e3413bc627e8840efaba5408da1d5c21cea"
 
       def install
         install_binary "nexus-darwin-arm64"
@@ -27,7 +27,7 @@ class OauthLlmNexus < Formula
   on_linux do
     on_intel do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-linux-amd64"
-      sha256 "5b19bb9ed12735f1f11bd7871300be901f9c11c0752272812802512442b83b6e"
+      sha256 "a881c2706cec7a5ce4243e082fd8079100015b7cdd01baa22ccac904bad0c96e"
 
       def install
         install_binary "nexus-linux-amd64"
@@ -36,7 +36,7 @@ class OauthLlmNexus < Formula
 
     on_arm do
       url "https://github.com/pysugar/oauth-llm-nexus/releases/download/v#{version}/nexus-linux-arm64"
-      sha256 "4af5748d57cf1a25eeb3534accc277802d9fb0f9b8a0af8d69408c93ac1f9cad"
+      sha256 "62ce52ac712f2b4a51848b361979140d8a01a5b0dac529fa57a7e4591748f945"
 
       def install
         install_binary "nexus-linux-arm64"
